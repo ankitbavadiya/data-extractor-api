@@ -9,7 +9,6 @@ RUN python3.10 -c "import nltk; nltk.download('punkt')" && \
   python3.10 -c "from unstructured.partition.model_init import initialize; initialize()"
 
 RUN apt install tesseract-ocr
-FROM model-deps as code
 COPY prepline_general/ prepline_general/
 
 CMD [ "prepline_general.api.app.handler" ]
