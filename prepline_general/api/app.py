@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request, status, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.security import APIKeyHeader
+from mangum import Mangum
 import logging
 import os
 
@@ -30,12 +31,15 @@ app = FastAPI(
     openapi_tags=[{"name": "general"}],
 )
 
+
+
 # Note(austin) - This logger just dumps exceptions
 # We'd rather handle those below, so disable this in deployments
 uvicorn_logger = logging.getLogger("uvicorn.error")
 if os.environ.get("ENV") in ["dev", "prod"]:
     uvicorn_logger.disabled = True
 
+handler = Mangum(app)
 
 # Catch all HTTPException for uniform logging and response
 @app.exception_handler(HTTPException)
