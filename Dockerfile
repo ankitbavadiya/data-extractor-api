@@ -43,7 +43,8 @@ COPY --chown=${NB_USER}:${NB_USER} prepline_${PIPELINE_PACKAGE}/ prepline_${PIPE
 COPY --chown=${NB_USER}:${NB_USER} exploration-notebooks exploration-notebooks
 COPY --chown=${NB_USER}:${NB_USER} scripts/app-start.sh scripts/app-start.sh
 
-ENTRYPOINT ["scripts/app-start.sh"]
-# Expose a default port of 8000. Note: The EXPOSE instruction does not actually publish the port,
-# but some tooling will inspect containers and perform work contingent on networking support declared.
-EXPOSE 8000
+# ENTRYPOINT ["scripts/app-start.sh"]
+# # Expose a default port of 8000. Note: The EXPOSE instruction does not actually publish the port,
+# # but some tooling will inspect containers and perform work contingent on networking support declared.
+# EXPOSE 8000
+CMD [ "prepline_general.api.app.handler" ]
